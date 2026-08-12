@@ -1,0 +1,81 @@
+// ==UserScript==
+// @name         SLCM UI GACOR
+// @namespace    http://tampermonkey.net/
+// @version      1.0.0
+// @description  SEMOGA BERMANFAAT, JANGAN DIPAKE BUAT JASA JOKI
+// @author       kudaganteng17
+// @match        https://slcm.ui.ac.id/*
+// @noframes
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // ganti pake nama kelas yang textnya warna biru
+    var target_teks = [
+        "BirGov 2025 (Kls. C)",
+        "KSP 2025 (Kelas C)",
+        "KN 2025 (Kelas C)",
+        "NP 2025 (Kelas C)",
+        "PKP 2025 (Kelas C)",
+        "PA 2025 (Kelas C)",
+        "TO 2025 (Kelas C)"
+    ];
+
+    function eksekusiGacor() {
+        var target_len = target_teks.length;
+
+        for (var i = 0; i < target_len; i++) {
+            var teksIncaran = target_teks[i];
+
+            var xPathQuery = "//*[contains(text(), '" + teksIncaran + "')]";
+            var elemenTeksKetemu = document.evaluate(xPathQuery, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+
+            if (elemenTeksKetemu) {
+                var barisTabel = elemenTeksKetemu.closest("tr");
+
+                if (barisTabel) {
+                    var checkbox = barisTabel.querySelector("input[type='checkbox']");
+
+                    if (checkbox && !checkbox.checked) {
+                        checkbox.click();
+                    }
+                }
+            }
+        }
+
+        var scrollingElement = (document.scrollingElement || document.body);
+        scrollingElement.scrollTop = scrollingElement.scrollHeight;
+
+        var submitButton = null;
+
+        var semuaElemenBerpotensi = document.querySelectorAll("button, .v-btn, input[type='button'], input[type='submit']");
+
+        for (var k = 0; k < semuaElemenBerpotensi.length; k++) {
+            var teksElemen = semuaElemenBerpotensi[k].textContent || semuaElemenBerpotensi[k].value || semuaElemenBerpotensi[k].innerText;
+
+            if (teksElemen && teksElemen.includes("Kirim Pengajuan IRS")) {
+                submitButton = semuaElemenBerpotensi[k];
+                break;
+            }
+        }
+
+        if (submitButton) {
+            setTimeout(function() {
+                submitButton.click();
+            }, 300);
+        } else {
+            console.error("error: ga nemu tombol submit");
+        }
+    }
+
+    var intervalCek = setInterval(function() {
+        var adaCheckboxTabel = document.querySelector("tbody input[type='checkbox']");
+
+        if (adaCheckboxTabel) {
+            clearInterval(intervalCek);
+            setTimeout(eksekusiGacor, 1000);
+        }
+    }, 500);
+
+})();
