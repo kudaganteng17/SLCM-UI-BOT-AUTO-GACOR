@@ -31,4 +31,6 @@ var target_teks = [
 3. Copy the class name ONLY from the blue-colored text (be careful not to make a mistake)
 
 ENJOY YOUR CLASS, jangan digunakan untuk jasa joki berbayar
+
+
 -kudaganteng17
