@@ -1,5 +1,7 @@
 > [!warning]
 > This script may not work as expected. Use at your own risk.
+
+
 JANGAN DIGUNAKAN UNTUK JASA JOKI BERBAYAR
 
 ## Installation
@@ -22,7 +24,8 @@ var target_teks = [
     "LUNCH 2026 (Kelas A)", 
     
     "DINNER 2026 (Kelas A)" 
-]; ```
+];
+```
 
 2. Get the class name from the page "Jadwal" -> "Jadwal Kuliah"
 3. Copy the class name ONLY from the blue-colored text (be careful not to make a mistake)
